@@ -37,10 +37,13 @@ Click the links below to view each demo live:
 ## 📁 Folder Structure
 
 Each project is contained in its own folder with the necessary files:
-project-folder/ 
-├── index.html 
-├── style.css 
+
+```text
+project-folder/
+├── index.html
+├── style.css
 └── script.js
+```
 
 
 ## 📌 How to Use Locally
