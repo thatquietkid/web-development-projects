@@ -15,7 +15,7 @@ Click the links below to view each demo live:
 7. [Dark Mode Toggle](https://thatquietkid.github.io/web-development-projects/dark-mode-toggle)
 8. [E-commerce Product Comparison](https://thatquietkid.github.io/web-development-projects/ecom-product-comparison-demo)
 9. [Image Carousel no JS](https://thatquietkid.github.io/web-development-projects/image-carousel)
-10. [Interactive Blog Cards](htteps://thatquietkid.github.io/web-development-projects/interactive-blog-cards)
+10. [Interactive Blog Cards](https://thatquietkid.github.io/web-development-projects/interactive-blog-cards)
 11. [Login Signup Page](https://thatquietkid.github.io/web-development-projects/login-signup-page)
 12. [Menu Items](https://thatquietkid.github.io/web-development-projects/menu-items)
 13. [Multi step form wizard](https://thatquietkid.github.io/web-development-projects/multi-step-form-wizard)
