@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio Gallery</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #ffffff, #f1f1f1);
+      padding: 2rem;
+      color: #2c3e50;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    /* Filter Styles */
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .filter-checkbox {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .filter-label {
+      background-color: #f0f0f0;
+      color: #333;
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 2px solid transparent;
+      transition: background-color 0.3s, color 0.3s, border 0.3s;
+      cursor: pointer;
+    }
+
+    .filter-label:hover {
+      background-color: #e0e0e0;
+    }
+
+    .filter-checkbox:checked + .filter-label {
+      background-color: #3498db;
+      color: #fff;
+      border-color: #2980b9;
+    }
+
+    /* Gallery Grid */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .gallery-item {
+      background-color: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeIn 0.4s ease-in;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .gallery-item-content {
+      padding: 1rem 1.2rem;
+    }
+
+    .gallery-item h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+      color: #1f2d3d;
+    }
+
+    .gallery-item p {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 0.6rem;
+    }
+
+    .gallery-item-tag {
+      display: inline-block;
+      background-color: #e8ecf1;
+      color: #2c3e50;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-radius: 6px;
+      margin-right: 0.4rem;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Filtering Logic */
+    #all:checked ~ .gallery .gallery-item {
+      display: block;
+    }
+
+    #design:not(:checked) ~ .gallery .item-design,
+    #development:not(:checked) ~ .gallery .item-development,
+    #photography:not(:checked) ~ .gallery .item-photography,
+    #branding:not(:checked) ~ .gallery .item-branding {
+      display: none;
+    }
+
+    #all:not(:checked) ~ .gallery .gallery-item {
+      display: none;
+    }
+
+    #all:not(:checked) ~ #design:checked ~ .gallery .item-design,
+    #all:not(:checked) ~ #development:checked ~ .gallery .item-development,
+    #all:not(:checked) ~ #photography:checked ~ .gallery .item-photography,
+    #all:not(:checked) ~ #branding:checked ~ .gallery .item-branding {
+      display: block;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-label {
+        width: 90%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+      <h1>Portfolio Gallery</h1>
+  
+      <!-- Filter Checkboxes -->
+      <input type="checkbox" id="all" class="filter-checkbox" checked>
+      <input type="checkbox" id="design" class="filter-checkbox" checked>
+      <input type="checkbox" id="development" class="filter-checkbox" checked>
+      <input type="checkbox" id="photography" class="filter-checkbox" checked>
+      <input type="checkbox" id="branding" class="filter-checkbox" checked>
+  
+      <!-- Filter Labels -->
+      <div class="filter-container">
+        <label for="all" class="filter-label">All</label>
+        <label for="design" class="filter-label">Design</label>
+        <label for="development" class="filter-label">Development</label>
+        <label for="photography" class="filter-label">Photography</label>
+        <label for="branding" class="filter-label">Branding</label>
+      </div>
+  
+      <!-- Gallery Items -->
+      <div class="gallery">
+        <!-- Design -->
+        <div class="gallery-item item-design">
+          <img src="https://placehold.co/400x300" alt="Design Project 1">
+          <div class="gallery-item-content">
+            <h3>Brand Identity</h3>
+            <p>Modern visual identity for a tech startup</p>
+            <span class="gallery-item-tag">Design</span>
+          </div>
+        </div>
+  
+        <div class="gallery-item item-design">
+          <img src="https://placehold.co/400x300" alt="Design Project 2">
+          <div class="gallery-item-content">
+            <h3>UI Design System</h3>
+            <p>Comprehensive design system for web applications</p>
+            <span class="gallery-item-tag">Design</span>
+          </div>
+        </div>
+  
+        <!-- Development -->
+        <div class="gallery-item item-development">
+          <img src="https://placehold.co/400x300" alt="Development Project 1">
+          <div class="gallery-item-content">
+            <h3>E-commerce Platform</h3>
+            <p>Full-stack development of an online store</p>
+            <span class="gallery-item-tag">Development</span>
+          </div>
+        </div>
+  
+        <div class="gallery-item item-development">
+          <img src="https://placehold.co/400x300" alt="Development Project 2">
+          <div class="gallery-item-content">
+            <h3>Mobile App</h3>
+            <p>Cross-platform application for productivity</p>
+            <span class="gallery-item-tag">Development</span>
+          </div>
+        </div>
+  
+        <!-- Photography -->
+        <div class="gallery-item item-photography">
+          <img src="https://placehold.co/400x300" alt="Photography Project 1">
+          <div class="gallery-item-content">
+            <h3>Urban Landscapes</h3>
+            <p>Series of cityscape photography at night</p>
+            <span class="gallery-item-tag">Photography</span>
+          </div>
+        </div>
+  
+        <div class="gallery-item item-photography">
+          <img src="https://placehold.co/400x300" alt="Photography Project 2">
+          <div class="gallery-item-content">
+            <h3>Portrait Series</h3>
+            <p>Professional portraits in natural light</p>
+            <span class="gallery-item-tag">Photography</span>
+          </div>
+        </div>
+  
+        <!-- Branding -->
+        <div class="gallery-item item-branding">
+          <img src="https://placehold.co/400x300" alt="Branding Project 1">
+          <div class="gallery-item-content">
+            <h3>Restaurant Rebrand</h3>
+            <p>Complete rebranding of a local restaurant chain</p>
+            <span class="gallery-item-tag">Branding</span>
+          </div>
+        </div>
+  
+        <div class="gallery-item item-branding item-design">
+          <img src="https://placehold.co/400x300" alt="Branding Project 2">
+          <div class="gallery-item-content">
+            <h3>Corporate Identity</h3>
+            <p>Logo and brand guidelines for financial service</p>
+            <span class="gallery-item-tag">Branding</span>
+            <span class="gallery-item-tag">Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  </html>

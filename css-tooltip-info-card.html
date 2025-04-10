@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSS Tooltip & Info Card</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+      padding: 2rem;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #2c3e50;
+    }
+
+    /* Info Card Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #34495e;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    /* Tooltip Target */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: help;
+      color: #2980b9;
+      font-weight: 500;
+      border-bottom: 1px dotted #2980b9;
+    }
+
+    /* Tooltip Styling with Pseudo-element */
+    .tooltip::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2c3e50;
+      color: #fff;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .tooltip:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-5px);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 480px) {
+      .card {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>CSS-Only Tooltip & Info Cards</h1>
+
+  <div class="card-grid">
+    <div class="card">
+      <h2>About Me <span class="tooltip" data-tooltip="This is a short bio section.">🛈</span></h2>
+      <p>Front-end developer passionate about clean UI and efficient UX design. I enjoy working with modern frameworks and interactive elements.</p>
+    </div>
+    
+    <div class="card">
+      <h2>Skills <span class="tooltip" data-tooltip="Languages & frameworks I use.">🛠</span></h2>
+      <p>Proficient in HTML, CSS, JavaScript, React, Angular, and Tailwind. Also comfortable with Figma and accessibility-first design.</p>
+    </div>
+
+    <div class="card">
+      <h2>Contact <span class="tooltip" data-tooltip="Get in touch with me!">📫</span></h2>
+      <p>You can reach out to me via email or LinkedIn for collaboration, freelancing, or just to say hi!</p>
+    </div>
+  </div>
+</body>
+</html>

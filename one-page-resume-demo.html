@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>One-Page Resume</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+      padding: 2rem;
+    }
+
+    .resume {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: grid;
+      grid-template-areas:
+        "header header"
+        "summary summary"
+        "skills experience"
+        "education contact";
+      grid-gap: 2rem;
+    }
+
+    .header {
+      grid-area: header;
+      text-align: center;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 1rem;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      color: #2c3e50;
+    }
+
+    .header p {
+      font-size: 1rem;
+      color: #666;
+    }
+
+    .section {
+      padding: 0.5rem 0;
+    }
+
+    .summary {
+      grid-area: summary;
+    }
+
+    .skills {
+      grid-area: skills;
+    }
+
+    .experience {
+      grid-area: experience;
+    }
+
+    .education {
+      grid-area: education;
+    }
+
+    .contact {
+      grid-area: contact;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: #34495e;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.3rem;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .skills ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skills li {
+      background: #e0f7fa;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    .job {
+      margin-bottom: 1rem;
+    }
+
+    .job h3 {
+      margin-bottom: 0.2rem;
+      font-size: 1rem;
+      color: #2c3e50;
+    }
+
+    .job span {
+      font-size: 0.85rem;
+      color: #888;
+    }
+
+    .edu-item {
+      margin-bottom: 1rem;
+    }
+
+    .edu-item h3 {
+      font-size: 1rem;
+    }
+
+    .edu-item span {
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    .contact p {
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .resume {
+        grid-template-areas:
+          "header"
+          "summary"
+          "skills"
+          "experience"
+          "education"
+          "contact";
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="resume">
+    <div class="header">
+      <h1>Jane Doe</h1>
+      <p>Frontend Developer · UI/UX Designer · Web Enthusiast</p>
+    </div>
+
+    <div class="summary section">
+      <h2>Professional Summary</h2>
+      <p>Creative and detail-oriented frontend developer with 4+ years of experience building responsive web applications. Passionate about modern design systems and intuitive user experiences.</p>
+    </div>
+
+    <div class="skills section">
+      <h2>Skills</h2>
+      <ul>
+        <li>HTML</li>
+        <li>CSS / SASS</li>
+        <li>JavaScript</li>
+        <li>React</li>
+        <li>Angular</li>
+        <li>Figma</li>
+        <li>Git</li>
+        <li>Tailwind CSS</li>
+      </ul>
+    </div>
+
+    <div class="experience section">
+      <h2>Experience</h2>
+      <div class="job">
+        <h3>Frontend Developer · Acme Inc.</h3>
+        <span>2021 – Present</span>
+        <p>Developed and maintained scalable components in React. Collaborated with designers to implement accessible and responsive UI for SaaS products.</p>
+      </div>
+      <div class="job">
+        <h3>Web Designer · Freelance</h3>
+        <span>2019 – 2021</span>
+        <p>Designed and built websites for small businesses. Delivered projects end-to-end with modern aesthetics and mobile responsiveness.</p>
+      </div>
+    </div>
+
+    <div class="education section">
+      <h2>Education</h2>
+      <div class="edu-item">
+        <h3>B.Sc. in Computer Science</h3>
+        <span>XYZ University · 2015 – 2019</span>
+      </div>
+    </div>
+
+    <div class="contact section">
+      <h2>Contact</h2>
+      <p>Email: jane.doe@example.com</p>
+      <p>Phone: +1 234 567 890</p>
+      <p>LinkedIn: linkedin.com/in/janedoe</p>
+      <p>Portfolio: janedoe.dev</p>
+    </div>
+  </div>
+</body>
+</html>

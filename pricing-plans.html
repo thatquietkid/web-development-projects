@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pricing Plans</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f2f2;
+      color: #333;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .toggle-buttons {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .toggle-buttons button {
+      padding: 0.6rem 1.2rem;
+      border: 1px solid #ccc;
+      background: white;
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 0 0.5rem;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .toggle-buttons button.active {
+      background-color: #ff5722;
+      color: white;
+      border-color: #ff5722;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .plan {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .plan:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 20px rgba(255, 87, 34, 0.5);
+    }
+
+    .plan-title {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: #ff5722;
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 1rem 0;
+    }
+
+    .features {
+      list-style: none;
+      text-align: left;
+      padding: 0;
+      margin: 1rem 0;
+    }
+
+    .features li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .choose-btn {
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      background-color: #ff5722;
+      color: white;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .choose-btn:hover {
+      background-color: #e64a19;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+
+      .toggle-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Our Pricing Plans</h1>
+
+  <div class="toggle-buttons">
+    <button class="active" onclick="togglePlan('monthly')">Monthly</button>
+    <button onclick="togglePlan('annual')">Annual</button>
+  </div>
+
+  <section class="pricing-grid" id="pricing-section">
+
+    <article class="plan" data-monthly="19" data-annual="190">
+      <h2 class="plan-title">Basic</h2>
+      <p class="price">$19/mo</p>
+      <ul class="features">
+        <li>10 Projects</li>
+        <li>5 GB Storage</li>
+        <li>Email Support</li>
+      </ul>
+      <button class="choose-btn">Choose Plan</button>
+    </article>
+
+    <article class="plan" data-monthly="49" data-annual="490">
+      <h2 class="plan-title">Pro</h2>
+      <p class="price">$49/mo</p>
+      <ul class="features">
+        <li>50 Projects</li>
+        <li>50 GB Storage</li>
+        <li>Priority Support</li>
+      </ul>
+      <button class="choose-btn">Choose Plan</button>
+    </article>
+
+    <article class="plan" data-monthly="99" data-annual="990">
+      <h2 class="plan-title">Enterprise</h2>
+      <p class="price">$99/mo</p>
+      <ul class="features">
+        <li>Unlimited Projects</li>
+        <li>500 GB Storage</li>
+        <li>Dedicated Support</li>
+      </ul>
+      <button class="choose-btn">Choose Plan</button>
+    </article>
+
+  </section>
+
+  <script>
+    function togglePlan(mode) {
+      const buttons = document.querySelectorAll('.toggle-buttons button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      document.querySelector(`.toggle-buttons button[onclick*="${mode}"]`).classList.add('active');
+
+      const plans = document.querySelectorAll('.plan');
+      plans.forEach(plan => {
+        const monthly = plan.dataset.monthly;
+        const annual = plan.dataset.annual;
+        const price = plan.querySelector('.price');
+
+        if (mode === 'monthly') {
+          price.textContent = `$${monthly}/mo`;
+        } else {
+          price.textContent = `$${annual}/yr`;
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

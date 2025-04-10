@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Form with Validation</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f7f7f7;
+      padding: 2rem;
+      color: #333;
+    }
+
+    form {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: 1fr 1fr;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    form:focus-within {
+      outline: 2px solid #4caf50;
+    }
+
+    h2 {
+      grid-column: span 2;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #4caf50;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #4caf50;
+      outline: none;
+    }
+
+    input:invalid,
+    textarea:invalid {
+      border-color: #f44336;
+    }
+
+    input:valid,
+    textarea:valid {
+      border-color: #4caf50;
+    }
+
+    .full-width {
+      grid-column: span 2;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .checkbox-group,
+    .radio-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      accent-color: #4caf50;
+      width: 18px;
+      height: 18px;
+    }
+
+    .submit-btn {
+      grid-column: span 2;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #43a047;
+    }
+
+    @media (max-width: 600px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+
+      .full-width {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <form novalidate>
+    <h2>Contact Us</h2>
+
+    <div>
+      <label for="name">Name*</label>
+      <input type="text" id="name" name="name" required />
+    </div>
+
+    <div>
+      <label for="email">Email*</label>
+      <input type="email" id="email" name="email" required />
+    </div>
+
+    <div class="full-width">
+      <label for="message">Message*</label>
+      <textarea id="message" name="message" required></textarea>
+    </div>
+
+    <div class="full-width">
+      <label>Preferred Contact Method*</label>
+      <div class="options">
+        <label class="radio-group">
+          <input type="radio" name="contact" value="email" required /> Email
+        </label>
+        <label class="radio-group">
+          <input type="radio" name="contact" value="phone" required /> Phone
+        </label>
+      </div>
+    </div>
+
+    <div class="full-width">
+      <label>Services Interested In:</label>
+      <div class="options">
+        <label class="checkbox-group">
+          <input type="checkbox" name="service" value="design" /> Web Design
+        </label>
+        <label class="checkbox-group">
+          <input type="checkbox" name="service" value="seo" /> SEO
+        </label>
+        <label class="checkbox-group">
+          <input type="checkbox" name="service" value="hosting" /> Hosting
+        </label>
+      </div>
+    </div>
+
+    <button class="submit-btn" type="submit">Send Message</button>
+  </form>
+
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Card Gallery with 3D Flip Effect</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f5f7fa;
+      padding: 40px 20px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #2d3748;
+    }
+    
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    
+    .product-card {
+      height: 400px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+    }
+    
+    .product-card:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .card-front {
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card-back {
+      background-color: #2d3748;
+      color: white;
+      transform: rotateY(180deg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .product-image {
+      height: 240px;
+      width: 100%;
+      object-fit: cover;
+    }
+    
+    .product-info {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    .product-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #2d3748;
+    }
+    
+    .product-category {
+      font-size: 14px;
+      color: #718096;
+      margin-bottom: 12px;
+    }
+    
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .product-price {
+      font-size: 22px;
+      font-weight: 700;
+      color: #3182ce;
+    }
+    
+    .product-rating {
+      display: flex;
+      gap: 2px;
+    }
+    
+    .star {
+      color: #f6ad55;
+      font-size: 16px;
+    }
+    
+    .product-description {
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    
+    .product-details {
+      margin-bottom: 20px;
+    }
+    
+    .detail-item {
+      display: flex;
+      margin-bottom: 8px;
+    }
+    
+    .detail-label {
+      width: 100px;
+      color: #a0aec0;
+    }
+    
+    .cta-buttons {
+      margin-top: auto;
+      display: flex;
+      gap: 12px;
+    }
+    
+    .btn {
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      flex: 1;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+      background-color: #3182ce;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: #2b6cb0;
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+    
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Badge */
+    .badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #e53e3e;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      z-index: 1;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 20px;
+      }
+      
+      .product-card {
+        height: 360px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Featured Products</h1>
+    
+    <div class="product-grid">
+      <!-- Product 1 -->
+      <div class="product-card">
+        <div class="card-inner">
+          <div class="badge">SALE</div>
+          <div class="card-front">
+            <img src="https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb" alt="Wireless Headphones" class="product-image">
+            <div class="product-info">
+              <div>
+                <h3 class="product-title">Premium Wireless Headphones</h3>
+                <p class="product-category">Audio Equipment</p>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">$199.99</div>
+                <div class="product-rating">
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">☆</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-back">
+            <h3 class="product-title">Premium Wireless Headphones</h3>
+            <p class="product-description">Experience immersive sound with our premium noise-cancelling headphones, perfect for music lovers on the go.</p>
+            <div class="product-details">
+              <div class="detail-item">
+                <span class="detail-label">Battery:</span>
+                <span>20 hours</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Bluetooth:</span>
+                <span>5.0</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Weight:</span>
+                <span>250g</span>
+              </div>
+            </div>
+            <div class="cta-buttons">
+              <button class="btn btn-primary">Add to Cart</button>
+              <button class="btn btn-secondary">Wishlist</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Product 2 -->
+      <div class="product-card">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="https://images.unsplash.com/photo-1656053209629-8bdf3e494f91" alt="Smart Watch" class="product-image">
+            <div class="product-info">
+              <div>
+                <h3 class="product-title">Smart Fitness Watch</h3>
+                <p class="product-category">Wearable Technology</p>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">$149.99</div>
+                <div class="product-rating">
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-back">
+            <h3 class="product-title">Smart Fitness Watch</h3>
+            <p class="product-description">Track your fitness goals, monitor your health, and stay connected with this advanced smartwatch.</p>
+            <div class="product-details">
+              <div class="detail-item">
+                <span class="detail-label">Battery:</span>
+                <span>7 days</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Waterproof:</span>
+                <span>50m</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Sensors:</span>
+                <span>Heart, GPS</span>
+              </div>
+            </div>
+            <div class="cta-buttons">
+              <button class="btn btn-primary">Add to Cart</button>
+              <button class="btn btn-secondary">Wishlist</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Product 3 -->
+      <div class="product-card">
+        <div class="card-inner">
+          <div class="badge">NEW</div>
+          <div class="card-front">
+            <img src="https://images.unsplash.com/photo-1713470812508-c276021f1b93" alt="Laptop" class="product-image">
+            <div class="product-info">
+              <div>
+                <h3 class="product-title">Ultra-Slim Laptop Pro</h3>
+                <p class="product-category">Computers</p>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">$1299.99</div>
+                <div class="product-rating">
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">☆</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-back">
+            <h3 class="product-title">Ultra-Slim Laptop Pro</h3>
+            <p class="product-description">Powerful performance meets sleek design in this lightweight laptop, perfect for work and entertainment.</p>
+            <div class="product-details">
+              <div class="detail-item">
+                <span class="detail-label">Processor:</span>
+                <span>Intel i7</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">RAM:</span>
+                <span>16GB</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Storage:</span>
+                <span>512GB SSD</span>
+              </div>
+            </div>
+            <div class="cta-buttons">
+              <button class="btn btn-primary">Add to Cart</button>
+              <button class="btn btn-secondary">Wishlist</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Product 4 -->
+      <div class="product-card">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="https://images.unsplash.com/photo-1703489582781-b8a16019fafa" alt="Camera" class="product-image">
+            <div class="product-info">
+              <div>
+                <h3 class="product-title">Professional DSLR Camera</h3>
+                <p class="product-category">Photography</p>
+              </div>
+              <div class="product-footer">
+                <div class="product-price">$899.99</div>
+                <div class="product-rating">
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-back">
+            <h3 class="product-title">Professional DSLR Camera</h3>
+            <p class="product-description">Capture stunning photos and videos with this professional-grade camera, designed for photography enthusiasts.</p>
+            <div class="product-details">
+              <div class="detail-item">
+                <span class="detail-label">Resolution:</span>
+                <span>24.2MP</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Video:</span>
+                <span>4K</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Weight:</span>
+                <span>685g</span>
+              </div>
+            </div>
+            <div class="cta-buttons">
+              <button class="btn btn-primary">Add to Cart</button>
+              <button class="btn btn-secondary">Wishlist</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

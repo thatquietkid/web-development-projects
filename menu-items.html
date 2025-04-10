@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Menu - Tabbed Layout</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Garamond', 'Times New Roman', serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9f5f0;
+      padding: 40px 20px;
+    }
+
+    .menu-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .menu-header {
+      text-align: center;
+      padding: 30px 20px;
+      background-color: #4a3520;
+      color: #f1c27d;
+    }
+
+    .menu-title {
+      font-size: 2.8rem;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+    .menu-subtitle {
+      font-size: 1.2rem;
+      font-style: italic;
+      color: #ddb892;
+    }
+
+    /* Tab Controls Styling */
+    .tab-controls {
+      display: flex;
+      border-bottom: 2px solid #e8e8e8;
+      background-color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    /* Hide actual radio buttons */
+    .tab-input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .tab-label {
+      flex: 1;
+      padding: 18px 15px;
+      font-size: 1.2rem;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 600;
+      position: relative;
+      transition: all 0.3s ease;
+      color: #888;
+      border-bottom: 3px solid transparent;
+    }
+
+    .tab-label:hover {
+      color: #4a3520;
+      background-color: #f9f7f4;
+    }
+
+    /* Enhanced Active tab styling */
+    .tab-input:checked + .tab-label {
+      color: #4a3520;
+      border-bottom-color: #b85c38;
+      background-color: #f9f7f4;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+      font-weight: 700;
+      transform: translateY(-3px);
+    }
+
+    /* Add a glow effect to the active tab */
+    .tab-input:checked + .tab-label:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #b85c38;
+      box-shadow: 0 0 8px rgba(184, 92, 56, 0.6);
+    }
+
+    /* Content Tabs */
+    .tab-content {
+      display: none;
+      padding: 30px 40px;
+    }
+
+    /* Show selected tab content */
+    #breakfast:checked ~ #breakfast-content,
+    #lunch:checked ~ #lunch-content,
+    #dinner:checked ~ #dinner-content {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Menu Category Styling */
+    .menu-category {
+      margin-bottom: 35px;
+    }
+
+    .category-title {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #4a3520;
+      display: inline-block;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #b85c38;
+    }
+
+    /* Menu Item Styling */
+    .menu-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 25px;
+    }
+
+    .menu-item {
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      transition: all 0.3s ease;
+    }
+
+    .menu-item:hover {
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      transform: translateY(-3px);
+      border-color: #ddd;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .item-name {
+      font-size: 1.3rem;
+      color: #4a3520;
+      font-weight: 600;
+    }
+
+    .item-price {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #b85c38;
+    }
+
+    .item-description {
+      color: #666;
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .item-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .item-tag {
+      font-size: 0.8rem;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background-color: #f1e3d3;
+      color: #6b4423;
+    }
+
+    .item-tag.vegetarian {
+      background-color: #e8f4ea;
+      color: #3c763d;
+    }
+
+    .item-tag.spicy {
+      background-color: #f9e4e4;
+      color: #c0392b;
+    }
+
+    .item-tag.gluten-free {
+      background-color: #e3f0f7;
+      color: #2980b9;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .menu-items {
+        grid-template-columns: 1fr;
+      }
+
+      .tab-label {
+        font-size: 1rem;
+        padding: 12px 5px;
+      }
+      
+      .menu-title {
+        font-size: 2.2rem;
+      }
+      
+      .tab-content {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-container">
+    <!-- Menu Header -->
+    <header class="menu-header">
+      <h1 class="menu-title">Rustic Table</h1>
+      <p class="menu-subtitle">Farm-to-Table Cuisine</p>
+    </header>
+
+    <!-- Important: Put all tab inputs BEFORE tab content -->
+    <!-- Tab Controls - Radio Buttons -->
+    <input type="radio" name="menu-tabs" id="breakfast" class="tab-input" checked>
+    <input type="radio" name="menu-tabs" id="lunch" class="tab-input">
+    <input type="radio" name="menu-tabs" id="dinner" class="tab-input">
+    
+    <!-- Tab Labels -->
+    <div class="tab-controls">
+      <label for="breakfast" class="tab-label">Breakfast</label>
+      <label for="lunch" class="tab-label">Lunch</label>
+      <label for="dinner" class="tab-label">Dinner</label>
+    </div>
+
+    <!-- Breakfast Tab Content -->
+    <div id="breakfast-content" class="tab-content">
+      <div class="menu-category">
+        <h2 class="category-title">Morning Starters</h2>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Avocado Toast</h3>
+              <span class="item-price">$12</span>
+            </div>
+            <p class="item-description">Smashed avocado on artisanal sourdough with poached eggs, cherry tomatoes, and microgreens.</p>
+            <div class="item-tags">
+              <span class="item-tag vegetarian">Vegetarian</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Buttermilk Pancakes</h3>
+              <span class="item-price">$14</span>
+            </div>
+            <p class="item-description">Fluffy pancakes served with Vermont maple syrup, fresh berries, and whipped butter.</p>
+            <div class="item-tags">
+              <span class="item-tag vegetarian">Vegetarian</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h2 class="category-title">Breakfast Mains</h2>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Farmer's Breakfast</h3>
+              <span class="item-price">$16</span>
+            </div>
+            <p class="item-description">Two eggs any style with smoked bacon, breakfast sausage, home fries, and toast.</p>
+          </div>
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Garden Omelette</h3>
+              <span class="item-price">$15</span>
+            </div>
+            <p class="item-description">Three-egg omelette with seasonal vegetables, goat cheese, and herbs. Served with roasted potatoes.</p>
+            <div class="item-tags">
+              <span class="item-tag vegetarian">Vegetarian</span>
+              <span class="item-tag gluten-free">Gluten-Free</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Breakfast Burrito</h3>
+              <span class="item-price">$14</span>
+            </div>
+            <p class="item-description">Scrambled eggs, black beans, chorizo, avocado, and jack cheese wrapped in a flour tortilla. Served with salsa.</p>
+            <div class="item-tags">
+              <span class="item-tag spicy">Spicy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lunch Tab Content -->
+    <div id="lunch-content" class="tab-content">
+      <div class="menu-category">
+        <h2 class="category-title">Starters</h2>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Seasonal Soup</h3>
+              <span class="item-price">$9</span>
+            </div>
+            <p class="item-description">Chef's daily preparation using seasonal ingredients. Served with crusty bread.</p>
+          </div>
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Mixed Green Salad</h3>
+              <span class="item-price">$10</span>
+            </div>
+            <p class="item-description">Local greens, heirloom tomatoes, cucumber, radish, and house vinaigrette.</p>
+            <div class="item-tags">
+              <span class="item-tag vegetarian">Vegetarian</span>
+              <span class="item-tag gluten-free">Gluten-Free</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h2 class="category-title">Sandwiches & Mains</h2>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Farm Burger</h3>
+              <span class="item-price">$18</span>
+            </div>
+            <p class="item-description">Grass-fed beef patty with aged cheddar, caramelized onions, lettuce, tomato, and special sauce on a brioche bun.</p>
+          </div>
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Grilled Vegetable Wrap</h3>
+              <span class="item-price">$14</span>
+            </div>
+            <p class="item-description">Marinated grilled vegetables, hummus, mixed greens, and feta in a whole wheat wrap.</p>
+            <div class="item-tags">
+              <span class="item-tag vegetarian">Vegetarian</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Harvest Grain Bowl</h3>
+              <span class="item-price">$16</span>
+            </div>
+            <p class="item-description">Quinoa, roasted sweet potatoes, chickpeas, avocado, kale, and tahini dressing.</p>
+            <div class="item-tags">
+              <span class="item-tag vegetarian">Vegetarian</span>
+              <span class="item-tag gluten-free">Gluten-Free</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dinner Tab Content -->
+    <div id="dinner-content" class="tab-content">
+      <div class="menu-category">
+        <h2 class="category-title">Small Plates</h2>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Artisanal Cheese Board</h3>
+              <span class="item-price">$16</span>
+            </div>
+            <p class="item-description">Selection of local cheeses, honey, preserves, and artisanal crackers.</p>
+            <div class="item-tags">
+              <span class="item-tag vegetarian">Vegetarian</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Crispy Brussels Sprouts</h3>
+              <span class="item-price">$12</span>
+            </div>
+            <p class="item-description">Flash-fried brussels sprouts tossed with bacon, balsamic reduction, and parmesan.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h2 class="category-title">Main Courses</h2>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Pan-Seared Salmon</h3>
+              <span class="item-price">$26</span>
+            </div>
+            <p class="item-description">Wild-caught salmon with lemon herb butter, roasted fingerling potatoes, and seasonal vegetables.</p>
+            <div class="item-tags">
+              <span class="item-tag gluten-free">Gluten-Free</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Braised Short Rib</h3>
+              <span class="item-price">$29</span>
+            </div>
+            <p class="item-description">Slow-braised beef short rib with red wine reduction, creamy polenta, and glazed root vegetables.</p>
+            <div class="item-tags">
+              <span class="item-tag gluten-free">Gluten-Free</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Wild Mushroom Risotto</h3>
+              <span class="item-price">$22</span>
+            </div>
+            <p class="item-description">Arborio rice with a medley of wild mushrooms, white wine, parmesan, and truffle oil.</p>
+            <div class="item-tags">
+              <span class="item-tag vegetarian">Vegetarian</span>
+              <span class="item-tag gluten-free">Gluten-Free</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="item-header">
+              <h3 class="item-name">Herb-Roasted Chicken</h3>
+              <span class="item-price">$24</span>
+            </div>
+            <p class="item-description">Free-range half chicken with herb butter, garlic mashed potatoes, and roasted seasonal vegetables.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

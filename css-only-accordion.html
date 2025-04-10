@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSS-Only Accordion</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f0f2f5;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .accordion {
+      width: 100%;
+      max-width: 700px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .accordion input[type="radio"] {
+      display: none;
+    }
+
+    .accordion-label {
+      display: block;
+      padding: 1rem 1.5rem;
+      background: #2c3e50;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+
+    .accordion-label:hover {
+      background: #34495e;
+    }
+
+    .accordion-label::after {
+      content: '+';
+      position: absolute;
+      right: 1.5rem;
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .accordion input[type="radio"]:checked + .accordion-label::after {
+      transform: rotate(45deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      background: #fafafa;
+      transition: max-height 0.5s ease;
+      padding: 0 1.5rem;
+    }
+
+    .accordion input[type="radio"]:checked ~ .accordion-content {
+      max-height: 200px;
+      padding: 1rem 1.5rem;
+    }
+
+    .accordion-content p {
+      margin: 0;
+      color: #444;
+    }
+
+    @media (max-width: 600px) {
+      .accordion-label {
+        font-size: 1rem;
+        padding: 1rem;
+      }
+
+      .accordion-content {
+        padding: 0 1rem;
+      }
+
+      .accordion input[type="radio"]:checked ~ .accordion-content {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="accordion">
+
+    <div class="accordion-item">
+      <input type="radio" name="accordion" id="acc1" checked>
+      <label class="accordion-label" for="acc1">What is CSS?</label>
+      <div class="accordion-content">
+        <p>CSS stands for Cascading Style Sheets. It's used to style HTML elements by applying layout, color, font, and other visual properties.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <input type="radio" name="accordion" id="acc2">
+      <label class="accordion-label" for="acc2">How does Flexbox work?</label>
+      <div class="accordion-content">
+        <p>Flexbox is a layout model in CSS that allows elements to align and distribute space efficiently within a container, even when their size is unknown or dynamic.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <input type="radio" name="accordion" id="acc3">
+      <label class="accordion-label" for="acc3">What is Grid Layout?</label>
+      <div class="accordion-content">
+        <p>CSS Grid is a two-dimensional layout system that helps arrange content in rows and columns, providing more control over complex layouts.</p>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
